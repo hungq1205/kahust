@@ -1,0 +1,23 @@
+server:
+  port: 3001
+
+spring:
+  application:
+    name: quiz-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/kahust_quiz
+    username: postgres
+    password: hungthoi
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true

@@ -1,0 +1,100 @@
+services:
+  eureka-server:
+    build: ./eureka-server
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    networks:
+      - prv-net
+      
+  api-gateway:
+    build: ./gateway
+    container_name: api-gateway
+    depends_on:
+      - eureka-server
+    ports:
+      - "3000:3000"
+    networks:
+      - prv-net
+      
+  user-service:
+    build: ./user
+    container_name: user-service
+    depends_on:
+      - eureka-server
+      - user-db
+    ports:
+      - "3003:3003"
+    networks:
+      - prv-net
+
+  user-db:
+    image: mysql:8.0
+    container_name: user-db
+    environment:
+      MYSQL_ROOT_PASSWORD: hungthoi
+      MYSQL_DATABASE: kahust_user
+    ports:
+      - "3307:3306"
+    networks:
+      - prv-net
+    volumes:
+      - user-data:/var/lib/mysql
+
+  room-service:
+    build: ./room
+    container_name: room-service
+    depends_on:
+      - eureka-server
+      - room-db
+    ports:
+      - "3002:3002"
+    networks:
+      - prv-net
+
+  room-db:
+    image: mysql:8.0
+    container_name: room-db
+    environment:
+      MYSQL_ROOT_PASSWORD: hungthoi
+      MYSQL_DATABASE: kahust_room
+    ports:
+      - "3308:3306"
+    networks:
+      - prv-net
+    volumes:
+      - room-data:/var/lib/mysql
+
+  quiz-service:
+    build: ./quiz
+    container_name: quiz-service
+    depends_on:
+      - eureka-server
+      - quiz-db
+    ports:
+      - "3001:3001"
+    networks:
+      - prv-net
+
+  quiz-db:
+    image: postgres:15
+    container_name: quiz-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: hungthoi
+      POSTGRES_DB: kahust_quiz
+    ports:
+      - "5433:5432"
+    networks:
+      - prv-net
+    volumes:
+      - quiz-data:/var/lib/postgresql/data
+
+networks:
+  prv-net:
+    driver: bridge
+
+volumes:
+  user-data:
+  room-data:
+  quiz-data:

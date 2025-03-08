@@ -1,0 +1,25 @@
+server:
+  port: 3003
+
+spring:
+  application:
+    name: user-service
+  datasource:
+    url: jdbc:mysql://user-db:3306/kahust_user
+    username: root
+    password: hungthoi
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-server:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    
+jwt:
+  secret: "this is a very long secret key that is pretty secure"
