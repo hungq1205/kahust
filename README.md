@@ -1,7 +1,10 @@
 A simple webapp inspired by Kahoot
 
+Run application by compose the **docker-compose.yml** and launch the **frontend server** in the **/frontend** folder
+
 # Architecture
 Use **microservices** architecture with each component is containerized with **Docker**:
+![kahust](https://github.com/user-attachments/assets/1864c017-5519-485d-8350-a99c0351f3b0)
 
 &emsp; **ReactJS** as frontend
 
@@ -14,8 +17,6 @@ Use **microservices** architecture with each component is containerized with **D
 &emsp;&emsp; - **User Service:** handles user information and also contains an inner authorization service for authenticate with **JWT**
 
 &emsp;&emsp; - **Quiz Service, Room Service:** handles game logic and store informations
-    
-![kahust](https://github.com/user-attachments/assets/1864c017-5519-485d-8350-a99c0351f3b0)
 
 # Main Use Cases:
 
